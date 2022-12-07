@@ -13,3 +13,14 @@ const remove = (index) => {
   let newList = taskList.filter ((a) => { if (a.index !== index) {return a;}});
   taskList = newList;
 }
+
+const edit = (description, index) => {
+  let newList = taskList.filter ((a) => { if (a.index === index) {
+      a.description = description; 
+      return a;
+    } else {
+      return a;
+    }
+  });
+  taskList = newList;
+}
