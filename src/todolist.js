@@ -10,7 +10,14 @@ const add =  (description, index, completed = false) => {
 }
 
 const remove = (index) => {
-  let newList = taskList.filter ((a) => { if (a.index !== index) {return a;}});
+  let newList = taskList.filter ((a) => { 
+    if (a.index !== index) {
+      if (a.index > index) {
+        a.index--;
+      }
+      return a;
+    }
+  });
   taskList = newList;
 }
 
@@ -24,3 +31,4 @@ const edit = (description, index) => {
   });
   taskList = newList;
 }
+
