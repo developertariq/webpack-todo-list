@@ -8,3 +8,8 @@ const add =  (description, index, completed = false) => {
 
   taskList.push(task);
 }
+
+const remove = (index) => {
+  let newList = taskList.filter ((a) => { if (a.index !== index) {return a;}});
+  taskList = newList;
+}
