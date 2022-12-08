@@ -56,11 +56,11 @@ export const displayTaskList = () => {
 export const itemList = () => {
   const itemdiv = document.createElement('div');
   itemdiv.id='item-list';
-  itemdiv.classList.add('items');
+  //itemdiv.classList.add('items');
   displayTaskList();
   taskList.forEach( task => {      
     const div = document.createElement('div');
-    div.classList.add('clear', 'todo');
+    div.classList.add('clear', 'todo', 'task-color-white');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('checkbox');
@@ -71,11 +71,14 @@ export const itemList = () => {
     label.innerText = task.description;
     div.appendChild(label);
 
+    const refresh = document.createElement('div');
+    refresh.classList.add('refresh');
+
     const remove = document.createElement('i');
     remove.classList.add('fas', 'fa-ellipsis-v');
-    // remove.classList.add('far', 'fa-trash-alt');
-    div.appendChild(remove);
-
+    
+    refresh.appendChild(remove);
+    div.appendChild(refresh);
     itemdiv.appendChild(div);
   });
   

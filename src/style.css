@@ -117,7 +117,11 @@ form {
   font-style: italic;
 }
 
-#add-btn-wrap {
+#add-item input[type=text]::after {
+  font-style: normal;
+}
+
+/* #add-btn-wrap {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,7 +130,7 @@ form {
   line-height: 50px;
   height: 50px;
   border: none;
-}
+} */
 
 #submit-new-task {
   border: none;
@@ -175,9 +179,10 @@ input[type=text], textarea {
 
 .todo {
   display: flex;
-  position: relative;
-  background-color: #fff;
-  padding: 0px 3em;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0;
   font-size: 1rem;
   border-bottom: 1px solid rgba(0,0,0,0.08);
   font-weight: 300;
@@ -192,6 +197,14 @@ input[type=text], textarea {
   perspective: 1000;
 }
 
+.task-color-pink {
+  background-color: #ffddb0;
+}
+
+.task-color-white {
+  background-color: #fff;
+}
+
 /* .clear:before,
 .clear:after {
   content: " ";
@@ -203,7 +216,6 @@ input[type=text], textarea {
 } */
 
 .checkbox {
-
   background-color: transparent;
   border: 4px solid #c1c1c3;
   cursor: pointer;
@@ -212,10 +224,17 @@ input[type=text], textarea {
   width: 16px;
   border-radius: 2px;
   margin: 17px 17px;
-  margin-left: -2.5em;
 }
 
 .label {
+  width: 100%;
+  padding: 15px 0px;
+  line-height: 20px;
+  word-wrap: break-word;
+  display: block;
+}
+
+.label:focus {
   width: 100%;
   padding: 15px 0px;
   line-height: 20px;

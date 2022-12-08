@@ -7,30 +7,25 @@ import '@fortawesome/fontawesome-free/js/all.js'
 function listHead () {
   const div = document.createElement('div');
   div.classList.add('list-head');
-
   const h2 = document.createElement('h2');
   h2.innerText = 'Today\'s To Do';
   div.appendChild(h2);
-
   const refresh = document.createElement('div');
   refresh.classList.add('refresh');
-
   const btnRefresh = document.createElement('i');
   btnRefresh.classList.add('fas', 'fa-sync-alt');
   refresh.appendChild(btnRefresh);
-
   div.appendChild(refresh);
-
   return div;
 }
 
 function addItem () {
   const div = document.createElement('div');
   div.id='add-item';
-  div.classList.add('items');
-
+  // div.classList.add('items');
   const form = document.createElement('form');
   form.id = 'new-task-form';
+  form.action = '#';
   const text = document.createElement('input');
   text.id = 'newtask';
   text.name = 'newtask';
@@ -39,7 +34,6 @@ function addItem () {
   text.placeholder = 'Add to your list...';
   text.required = true;
   form.appendChild(text);
-
   const submit = document.createElement('input');
   submit.id = 'submit-new-task';
   submit.classList.add('input-item', 'fas', 'fa-level-down-alt');
@@ -51,26 +45,22 @@ function addItem () {
   submit.title  = 'click this or press enter to submit';
   const btndiv = document.createElement('div');
   btndiv.id='add-btn-wrap';
-  btndiv.classList.add('input-item');
+  btndiv.classList.add('refresh');
   btndiv.appendChild(submit);
   form.appendChild(btndiv);
-
   div.appendChild(form);
-
   return div;
 }
 
-
 function removeSelected () {
   const div = document.createElement('div');
-  div.classList.add('items');
-
+  div.id = 'remove-item';
+  // div.classList.add('items');
   const button = document.createElement('button');
   button.classList.add('remove-selected');
   button.type = 'button';
   button.innerText = 'Clear all completed';
-  div.appendChild(button);
-  
+  div.appendChild(button);  
   return div;
 }
 
@@ -80,7 +70,6 @@ function lists() {
   lists.appendChild(addItem());
   lists.appendChild(itemList());
   lists.appendChild(removeSelected());
-
   return lists;
 }
 
@@ -89,7 +78,6 @@ function mainList () {
   main_list.classList.add('main-list');
   main_list.appendChild(listHead());
   main_list.appendChild(lists());
-
   return main_list;
 }
 
@@ -98,12 +86,10 @@ function listContainer() {
   list_container.id = 'list-container';
   list_container.classList.add('active', 'complete');
   list_container.appendChild(mainList());
-
   return list_container;
 }
 
 document.body.appendChild(listContainer());
-
 const form = document.querySelector('#new-task-form');
 
 form.addEventListener('submit', (event) => {
@@ -114,11 +100,46 @@ form.addEventListener('submit', (event) => {
 });
 
 
-document.querySelector('#submit-new-task').addEventListener('click', () => {
-  
+document.querySelector('#submit-new-task').addEventListener('click', () => {  
   if (document.getElementById('newtask').value !== '') {
     addNewTask (document.getElementById('newtask').value);
   }
-
   displayTaskList();
+});
+
+
+
+const selectTask = document.querySelector('#item-list');
+selectTask.addEventListener('click', (e) => {
+  let div = document.querySelector('.task-color-pink'); 
+  if (div !== null) {
+    div.classList.remove('task-color-pink');
+    div.classList.add('task-color-white');
+  }
+  if (e.target.classList.contains('label')) {
+    const nodeList = e.target.nextElementSibling.childNodes; ;
+    const [remove] = nodeList;
+    remove.classList.add('far', 'fa-trash-alt');
+    div = e.target.parentNode;
+    div.classList.remove('task-color-white');
+    div.classList.add('task-color-pink');
+  } 
+  document.querySelector('.fa-trash-can').classList.add('fas', 'fa-ellipsis-vertical');
+  document.querySelector('.fa-trash-can').classList.remove('far', 'fa-trash-alt');
+});
+
+document.querySelector('#add-item').addEventListener('click', () => {
+  let div = document.querySelector('.task-color-pink'); 
+  if (div !== null) {
+    div.classList.remove('task-color-pink');
+    div.classList.add('task-color-white');
+  }
+});
+
+document.querySelector('#remove-item').addEventListener('click', () => {
+  let div = document.querySelector('.task-color-pink'); 
+  if (div !== null) {
+    div.classList.remove('task-color-pink');
+    div.classList.add('task-color-white');
+  }
 });
