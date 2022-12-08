@@ -35,10 +35,10 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          outputPath: "../fonts",
-        }
+          outputPath: '../fonts',
+        },
       },
     ],
   },

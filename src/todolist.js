@@ -1,9 +1,9 @@
-import { toInteger } from 'lodash';
-import '@fortawesome/fontawesome-free/js/all.js'
+// import { toInteger } from 'lodash';
+import '@fortawesome/fontawesome-free/js/all.js';
 
 let taskList = [];
 
-export const addNewTask =  (description) => {
+export const addNewTask = (description) => {
   const task = {};
   task.description = description;
   task.completed = false;
@@ -14,48 +14,54 @@ export const addNewTask =  (description) => {
   }
   taskList.push(task);
   localStorage.setItem('todolist', JSON.stringify(taskList));
-}
+};
 
 export const deleteTask = (index) => {
-  let newList = taskList.filter ((a) => { 
+  const newList = taskList.filter((a) => {
     if (a.index !== index) {
       if (a.index > index) {
-        a.index--;
+        a.index -= 1;
       }
       return a;
     }
+    return -1;
   });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
-}
+};
 
 export const editTask = (description, index) => {
-  let newList = taskList.filter ((a) => { if (a.index === index) {
-      a.description = description; 
-      return a;
-    } else {
+  const newList = taskList.filter((a) => {
+    if (a.index === index) {
+      a.description = description;
       return a;
     }
+    return a;
   });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
-}
+};
 
-export const displayTaskList = () => {  
+export const displayTaskList = () => {
   if (localStorage.getItem('todolist') !== null) {
     const newList = JSON.parse(localStorage.getItem('todolist') || []);
-    //localStorage.clear();
+    // localStorage.clear();
     taskList = newList;
-    taskList = taskList.filter ((a) => { if (a.completed !== true) { return a; }});
+    taskList = taskList.filter((a) => {
+      if (a.completed !== true) {
+        return a;
+      }
+      return -1;
+    });
   }
-}
+};
 
 export const itemList = () => {
   const itemdiv = document.createElement('div');
-  itemdiv.id='item-list';
-  //itemdiv.classList.add('items');
+  itemdiv.id = 'item-list';
+  // itemdiv.classList.add('items');
   displayTaskList();
-  taskList.forEach( task => {      
+  taskList.forEach((task) => {
     const div = document.createElement('div');
     div.classList.add('clear', 'todo', 'task-color-white');
     const checkbox = document.createElement('input');
@@ -81,6 +87,6 @@ export const itemList = () => {
     div.appendChild(refresh);
     itemdiv.appendChild(div);
   });
-  
+
   return itemdiv;
-}
+};

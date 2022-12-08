@@ -1,5 +1,5 @@
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 body {
@@ -20,8 +20,8 @@ body {
   transition: padding 300ms ease-in-out, max-height 500ms ease-in-out;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  -webkit-perspective: 1000;
-  perspective: 1000;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
 }
 
 .complete {
@@ -38,12 +38,12 @@ body {
 }
 
 .main-list {
-  border-radius:3px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.15);
-  margin:0 auto;
-  top:0;
-  max-width:500px;
-  width:100%;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  top: 0;
+  max-width: 500px;
+  width: 100%;
   text-align: left;
   position: relative;
   padding-bottom: 1px;
@@ -56,7 +56,7 @@ body {
   padding-left: 22px;
   height: 50px;
   background: #fff;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .list-head h2 {
@@ -86,7 +86,6 @@ body {
   font-size: 18px;
   opacity: 0.5;
   color: #333;
-  margin: auto;
 }
 
 .color-green:hover {
@@ -109,20 +108,7 @@ form {
 }
 
 #add-item {
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-#add-item input[type=text] {
-  width: 100%;
-  padding: 0 40px 0 1rem;
-  line-height: 50px;
-  height: 50px;
-  border: none;
-  font-style: italic;
-}
-
-#add-item input[type=text]::after {
-  font-style: normal;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* #add-btn-wrap {
@@ -159,7 +145,7 @@ form {
   resize: none;
 }
 
-input[type=text], textarea {
+input[type=text] {
   padding: 8px 5px;
   border: 1px solid #ddd;
   line-height: 20px;
@@ -168,6 +154,19 @@ input[type=text], textarea {
   -moz-appearance: none;
   appearance: none;
   vertical-align: middle;
+}
+
+#add-item input[type=text] {
+  width: 100%;
+  padding: 0 40px 0 1rem;
+  line-height: 50px;
+  height: 50px;
+  border: none;
+  font-style: italic;
+}
+
+#add-item input[type=text]::after {
+  font-style: normal;
 }
 
 /* .todo.ui-sortable-helper {
@@ -185,10 +184,9 @@ input[type=text], textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 0;
   font-size: 1rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   font-weight: 300;
   -webkit-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
@@ -197,8 +195,8 @@ input[type=text], textarea {
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
 }
 
 .task-color-pink {
@@ -209,13 +207,13 @@ input[type=text], textarea {
   background-color: #fff;
 }
 
-.clear:before,
-.clear:after {
+.clear::before,
+.clear::after {
   content: " ";
   display: table;
 }
 
-.clear:after {
+.clear::after {
   clear: both;
 }
 
@@ -247,7 +245,8 @@ input[type=text], textarea {
   border: none;
   outline: none;
 }
-/* 
+
+/*
 .todo .destroy {
   opacity: 0.5;
   display: none;
@@ -286,7 +285,6 @@ input[type=text], textarea {
   display: block;
   color: #000;
   font-size: 15px;
-  margin: 15px 120px;
   padding: 1px 6px;
-  opacity: .5;
+  opacity: 0.5;
 }
