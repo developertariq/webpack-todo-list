@@ -1,12 +1,21 @@
+import { toInteger } from 'lodash';
+
 let taskList = [];
 
-const add =  (description, index, completed = false) => {
+const add =  (description) => {
   const task = {};
   task.description = description;
-  task.completed = completed;
-  task.index = index;
+  task.completed = false;
+  console.log(description);
+  if (taskList !== null) {
+    task.index = taskList.length + 1;
+  } else {
+    task.index = 1;
+  }
+  
 
   taskList.push(task);
+  localStorage.setItem('todolist', JSON.stringify(taskList));
 }
 
 const remove = (index) => {
@@ -19,6 +28,7 @@ const remove = (index) => {
     }
   });
   taskList = newList;
+  localStorage.setItem('todolist', JSON.stringify(taskList));
 }
 
 const edit = (description, index) => {
@@ -30,5 +40,7 @@ const edit = (description, index) => {
     }
   });
   taskList = newList;
+  localStorage.setItem('todolist', JSON.stringify(taskList));
 }
-
+ 
+export default taskList;

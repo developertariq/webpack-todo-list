@@ -1,36 +1,26 @@
 import _ from 'lodash';
 import './style.css';
-
-let tasks = [
-  {
-    description: 'Add index file',
-    completed: false,
-    index: 1
-  },
-  {
-    description: 'Add js file',
-    completed: false,
-    index: 2
-  },
-];
+import taskList from './todolist';
+import '@fortawesome/fontawesome-free/js/all.js'
 
 function listHead () {
-  const list_head = document.createElement('div');
-  list_head.classList.add('list-head');
+  const div = document.createElement('div');
+  div.classList.add('list-head');
 
   const h2 = document.createElement('h2');
   h2.innerText = 'Today\'s To Do';
-  list_head.appendChild(h2);
+  div.appendChild(h2);
+
   const refresh = document.createElement('div');
   refresh.classList.add('refresh');
 
   const btnRefresh = document.createElement('i');
-  btnRefresh.classList.add('fas', 'fa-sync-alt', 'fa-spin');
+  btnRefresh.classList.add('fas', 'fa-sync-alt');
   refresh.appendChild(btnRefresh);
 
-  list_head.appendChild(refresh);
+  div.appendChild(refresh);
 
-  return list_head;
+  return div;
 }
 
 function addItem () {
@@ -40,20 +30,27 @@ function addItem () {
 
   const form = document.createElement('form');
   const text = document.createElement('input');
-  text.id = 'new-item';
+  text.id = 'newtask';
+  text.name = 'newtask';
   text.classList.add('input-item')
   text.type = 'text';
   text.placeholder = 'Add to your list...';
   form.appendChild(text);
 
   const submit = document.createElement('input');
-  submit.id = 'submit-new-item';
-  submit.classList.add('input-item');
+  submit.id = 'submit-new-task';
+  submit.classList.add('input-item', 'fas', 'fa-level-down-alt');
+  submit.style.rotate = '90deg';
+  submit.style.fontSize = '18px';
   submit.type = 'submit';
   submit.tabIndex = -1;
   submit.value = '';
   submit.title  = 'click this or press enter to submit';
-  form.appendChild(submit);
+  const btndiv = document.createElement('div');
+  btndiv.id='add-btn-wrap';
+  btndiv.classList.add('input-item');
+  btndiv.appendChild(submit);
+  form.appendChild(btndiv);
 
   div.appendChild(form);
 
@@ -64,25 +61,28 @@ function itemList () {
   const itemdiv = document.createElement('div');
   itemdiv.id='item-list';
   itemdiv.classList.add('items');
+  
+  taskList.forEach((task) => {
+    if (!task.completed) {
+      const div = document.createElement('div');
+      div.classList.add('clear', 'todo');
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.classList.add('checkbox');
+      div.appendChild(checkbox);
 
-  tasks.forEach((task) => {
-    const div = document.createElement('div');
-    div.classList.add('clear', 'todo');
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('checkbox');
-    div.appendChild(checkbox);
+      const label = document.createElement('label');
+      label.classList.add('label');
+      label.innerText = task.description;
+      div.appendChild(label);
 
-    const label = document.createElement('label');
-    label.classList.add('label');
-    label.innerText = task.description;
-    div.appendChild(label);
+      const remove = document.createElement('i');
+      remove.classList.add('fas', 'fa-ellipsis-v');
+      // remove.classList.add('far', 'fa-trash-alt');
+      div.appendChild(remove);
 
-    const remove = document.createElement('i');
-    remove.classList.add('far', 'fa-trash-alt');
-    div.appendChild(remove);
-
-    itemdiv.appendChild(div);
+      itemdiv.appendChild(div);
+    }
   });
 
   return itemdiv;
@@ -130,3 +130,10 @@ function listContainer() {
 }
 
 document.body.appendChild(listContainer());
+
+// const form = document.getElementsByTagName('form');
+
+// form.addEventListener('submit', (event) => {
+//   add (form.elements.newtask.value);
+//   console.log(form.elements.newtask.value);
+// });
