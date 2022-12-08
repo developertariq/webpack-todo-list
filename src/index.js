@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import './style.css';
-import taskList from './todolist';
+import taskList, { addNewTask, remove, edit, displayTaskList, itemList } from './todolist';
+//const taskList = await import ('./todolist');
 import '@fortawesome/fontawesome-free/js/all.js'
 
 function listHead () {
@@ -29,12 +30,14 @@ function addItem () {
   div.classList.add('items');
 
   const form = document.createElement('form');
+  form.id = 'new-task-form';
   const text = document.createElement('input');
   text.id = 'newtask';
   text.name = 'newtask';
   text.classList.add('input-item')
   text.type = 'text';
   text.placeholder = 'Add to your list...';
+  text.required = true;
   form.appendChild(text);
 
   const submit = document.createElement('input');
@@ -57,36 +60,6 @@ function addItem () {
   return div;
 }
 
-function itemList () {
-  const itemdiv = document.createElement('div');
-  itemdiv.id='item-list';
-  itemdiv.classList.add('items');
-  
-  taskList.forEach((task) => {
-    if (!task.completed) {
-      const div = document.createElement('div');
-      div.classList.add('clear', 'todo');
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.classList.add('checkbox');
-      div.appendChild(checkbox);
-
-      const label = document.createElement('label');
-      label.classList.add('label');
-      label.innerText = task.description;
-      div.appendChild(label);
-
-      const remove = document.createElement('i');
-      remove.classList.add('fas', 'fa-ellipsis-v');
-      // remove.classList.add('far', 'fa-trash-alt');
-      div.appendChild(remove);
-
-      itemdiv.appendChild(div);
-    }
-  });
-
-  return itemdiv;
-}
 
 function removeSelected () {
   const div = document.createElement('div');
@@ -131,9 +104,21 @@ function listContainer() {
 
 document.body.appendChild(listContainer());
 
-// const form = document.getElementsByTagName('form');
+const form = document.querySelector('#new-task-form');
 
-// form.addEventListener('submit', (event) => {
-//   add (form.elements.newtask.value);
-//   console.log(form.elements.newtask.value);
-// });
+form.addEventListener('submit', (event) => {
+  if (document.getElementById('newtask').value !== '') {
+    addNewTask (form.elements.newtask.value);
+  }
+  displayTaskList();
+});
+
+
+document.querySelector('#submit-new-task').addEventListener('click', () => {
+  
+  if (document.getElementById('newtask').value !== '') {
+    addNewTask (document.getElementById('newtask').value);
+  }
+
+  displayTaskList();
+});
