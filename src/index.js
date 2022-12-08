@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import './style.css';
-import { addNewTask, deleteTask, edit, displayTaskList, itemList } from './todolist';
+import { addNewTask, deleteTask, editTask, displayTaskList, itemList } from './todolist';
 import '@fortawesome/fontawesome-free/js/all'
 
 function listHead () {
@@ -109,6 +109,18 @@ document.querySelector('#submit-new-task').addEventListener('click', () => {
 
 const selectTask = document.querySelector('#item-list');
 selectTask.addEventListener('click', (e) => {
+  const trashCan = document.querySelector('.fa-trash-can');
+  if (trashCan !== null) {
+    trashCan.classList.add('fas', 'fa-ellipsis-vertical');
+    trashCan.classList.remove('far', 'fa-trash-alt');  
+  }
+
+  if (e.target.classList.contains('fa-trash-can')) {
+    const nod = e.target.parentNode;
+    deleteTask(parseInt(nod.getAttribute('index')));
+    displayTaskList();
+    window.location.reload();
+  }
   if (e.target.classList.contains('label')) {
     let div = document.querySelector('.task-color-pink'); 
     if (div !== null) {
@@ -121,16 +133,21 @@ selectTask.addEventListener('click', (e) => {
     div = e.target.parentNode;
     div.classList.remove('task-color-white');
     div.classList.add('task-color-pink');
+    const label = e.target;
+    label.setAttribute("contenteditable", "true");
+    label.focus();
   }
-  if (e.target.classList.contains('fa-trash-can')) {
-    const nod = e.target.parentNode;
-    deleteTask(parseInt(nod.title));
-    displayTaskList();
-    window.location.reload();
-  }
-  document.querySelector('.fa-trash-can').classList.add('fas', 'fa-ellipsis-vertical');
-  document.querySelector('.fa-trash-can').classList.remove('far', 'fa-trash-alt');
 });
+
+// document.querySelector('.label').addEventListener('change', (e) => {
+//   alert('iamhere');
+//   if (e.target.classList.contains('label')) {
+//     const label = e.target;
+//     editTask(parseInt(label.title));
+//     displayTaskList();
+//     window.location.reload();
+//   }
+// });
 
 document.querySelector('#add-item').addEventListener('click', () => {
   let div = document.querySelector('.task-color-pink'); 

@@ -29,7 +29,7 @@ export const deleteTask = (index) => {
   localStorage.setItem('todolist', JSON.stringify(taskList));
 }
 
-export const edit = (description, index) => {
+export const editTask = (description, index) => {
   let newList = taskList.filter ((a) => { if (a.index === index) {
       a.description = description; 
       return a;
@@ -66,6 +66,8 @@ export const itemList = () => {
     const label = document.createElement('label');
     label.classList.add('label');
     label.innerText = task.description;
+    // label.title = task.index;
+    label.setAttribute('index', task.index);
     div.appendChild(label);
 
     const refresh = document.createElement('div');
@@ -73,8 +75,8 @@ export const itemList = () => {
 
     const remove = document.createElement('i');
     remove.classList.add('fas', 'fa-ellipsis-v');
-    refresh.title = task.index;
-    
+    // refresh.title = task.index;
+    refresh.setAttribute('index', task.index);
     refresh.appendChild(remove);
     div.appendChild(refresh);
     itemdiv.appendChild(div);
