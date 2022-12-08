@@ -1,7 +1,7 @@
 // import _ from 'lodash';
 import './style.css';
 import {
-  addNewTask, deleteTask, displayTaskList, itemList,
+  addNewTask, deleteTask, editTask, displayTaskList, itemList,
 } from './todolist.js';
 import '@fortawesome/fontawesome-free/js/all.js';
 
@@ -24,7 +24,6 @@ function listHead() {
 function addItem() {
   const div = document.createElement('div');
   div.id = 'add-item';
-  // div.classList.add('items');
   const form = document.createElement('form');
   form.id = 'new-task-form';
   form.action = '#';
@@ -57,7 +56,6 @@ function addItem() {
 function removeSelected() {
   const div = document.createElement('div');
   div.id = 'remove-item';
-  // div.classList.add('items');
   const button = document.createElement('button');
   button.classList.add('remove-selected');
   button.type = 'button';
@@ -101,7 +99,8 @@ form.addEventListener('submit', () => {
   displayTaskList();
 });
 
-document.querySelector('#submit-new-task').addEventListener('click', () => {
+const addNewButton = document.querySelector('#submit-new-task');
+addNewButton.addEventListener('click', () => {
   if (document.getElementById('newtask').value !== '') {
     addNewTask(document.getElementById('newtask').value);
   }
@@ -111,18 +110,26 @@ document.querySelector('#submit-new-task').addEventListener('click', () => {
 const selectTask = document.querySelector('#item-list');
 selectTask.addEventListener('click', (e) => {
   const trashCan = document.querySelector('.fa-trash-can');
+  const textarea = document.querySelectorAll('.edit-input');
+  const label = document.querySelectorAll('.label');
+  if (label !== null) {
+    label.forEach((a) => {
+      a.classList.remove('hide');
+    });
+  }
+  if (textarea !== null) {
+    textarea.forEach((a) => {
+      a.classList.add('hide');
+    });
+  }
   if (trashCan !== null) {
     trashCan.classList.add('fas', 'fa-ellipsis-vertical');
     trashCan.classList.remove('far', 'fa-trash-alt');
   }
 
-  if (e.target.classList.contains('fa-trash-can')) {
-    const nod = e.target.parentNode;
-    deleteTask(parseInt(nod.getAttribute('index'), 10));
-    displayTaskList();
-    window.location.reload();
-  }
   if (e.target.classList.contains('label')) {
+    e.target.classList.add('hide');
+
     let div = document.querySelector('.task-color-pink');
     if (div !== null) {
       div.classList.remove('task-color-pink');
@@ -134,21 +141,30 @@ selectTask.addEventListener('click', (e) => {
     div = e.target.parentNode;
     div.classList.remove('task-color-white');
     div.classList.add('task-color-pink');
-    const label = e.target;
-    label.setAttribute('contenteditable', 'true');
-    label.focus();
+    const sarea = e.target.previousElementSibling;
+    sarea.classList.remove('hide');
+    sarea.focus();
   }
 });
 
-// document.querySelector('.label').addEventListener('change', (e) => {
-//   alert('iamhere');
-//   if (e.target.classList.contains('label')) {
-//     const label = e.target;
-//     editTask(parseInt(label.title));
-//     displayTaskList();
-//     window.location.reload();
-//   }
-// });
+const textarea = document.querySelectorAll('textarea');
+
+for (let i = 0; i < textarea.length; i += 1) {
+  textarea[i].onchange = function () {
+    editTask(this.value, parseInt(this.name, 10));
+    const div = this.nextElementSibling;
+    div.innerText = this.value;
+  };
+}
+
+selectTask.addEventListener('click', (e) => {
+  if (e.target.classList.contains('fa-trash-can')) {
+    const nod = e.target.parentNode;
+    deleteTask(parseInt(nod.name, 10));
+    const div = nod.parentElement;
+    div.style.display = 'none';
+  }
+});
 
 document.querySelector('#add-item').addEventListener('click', () => {
   const div = document.querySelector('.task-color-pink');

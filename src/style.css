@@ -184,13 +184,13 @@ input[type=text] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 50px;
   padding: 0;
   font-size: 1rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   font-weight: 300;
   -webkit-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
-  box-sizing: content-box;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
@@ -225,18 +225,19 @@ input[type=text] {
   height: 16px;
   width: 16px;
   border-radius: 2px;
-  margin: 17px 17px;
+  margin: 17px;
 }
 
 .label {
   width: 100%;
   padding: 15px 0;
   line-height: 20px;
-  word-wrap: break-word;
   display: block;
+  font-size: 1em;
+  font-weight: 300;
 }
 
-.label:focus {
+/* .label:focus {
   width: 100%;
   padding: 15px 0;
   line-height: 20px;
@@ -244,7 +245,7 @@ input[type=text] {
   display: block;
   border: none;
   outline: none;
-}
+} */
 
 /*
 .todo .destroy {
@@ -284,7 +285,37 @@ input[type=text] {
   margin: 1rem auto;
   display: block;
   color: #000;
-  font-size: 15px;
-  padding: 1px 6px;
-  opacity: 0.5;
+  font-size: 1em;
+  font-weight: 300;
+  width: 100%;
+
+  /* padding: 8px 0; */
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.edit-input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: auto;
+  display: block;
+  color: #000;
+  font-size: 1.05em;
+  font-weight: 300;
+  width: 100%;
+  padding-top: 15px;
+  line-height: 20px;
+  border: none !important;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+  resize: none;
+  justify-content: center;
+  align-content: center;
+}
+
+.hide {
+  display: none;
 }

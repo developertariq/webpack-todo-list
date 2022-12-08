@@ -16,45 +16,34 @@ export const addNewTask = (description) => {
   localStorage.setItem('todolist', JSON.stringify(taskList));
 };
 
-export const deleteTask = (index) => {
+export function deleteTask(index) {
+  alert(index);
   const newList = taskList.filter((a) => {
-    if (a.index !== index) {
-      if (a.index > index) {
-        a.index -= 1;
-      }
-      return a;
-    }
-    return -1;
+    if (a.index !== index) { if (a.index > index) { a.index -= 1; } return a; } return;
   });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
-};
+}
 
 export const editTask = (description, index) => {
   const newList = taskList.filter((a) => {
-    if (a.index === index) {
-      a.description = description;
-      return a;
-    }
+    if (a.index === index) { a.description = description; return a; }
     return a;
   });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
 };
 
-export const displayTaskList = () => {
+export function displayTaskList() {
   if (localStorage.getItem('todolist') !== null) {
     const newList = JSON.parse(localStorage.getItem('todolist') || []);
-    // localStorage.clear();
     taskList = newList;
     taskList = taskList.filter((a) => {
-      if (a.completed !== true) {
-        return a;
-      }
-      return -1;
+      if (a.completed !== true) { return a; }
+      return 0;
     });
   }
-};
+}
 
 export const itemList = () => {
   const itemdiv = document.createElement('div');
@@ -69,20 +58,24 @@ export const itemList = () => {
     checkbox.classList.add('checkbox');
     div.appendChild(checkbox);
 
+    const textarea = document.createElement('textarea');
+    textarea.classList.add('edit-input', 'hide');
+    textarea.value = task.description;
+    textarea.autocomplete = 'off';
+    textarea.name = task.index;
+    div.appendChild(textarea);
+
     const label = document.createElement('label');
     label.classList.add('label');
     label.innerText = task.description;
-    // label.title = task.index;
-    label.setAttribute('index', task.index);
+    label.name = task.index;
     div.appendChild(label);
 
     const refresh = document.createElement('div');
     refresh.classList.add('refresh');
-
     const remove = document.createElement('i');
     remove.classList.add('fas', 'fa-ellipsis-v');
-    // refresh.title = task.index;
-    refresh.setAttribute('index', task.index);
+    refresh.name = task.index;
     refresh.appendChild(remove);
     div.appendChild(refresh);
     itemdiv.appendChild(div);
