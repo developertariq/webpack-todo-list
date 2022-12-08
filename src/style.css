@@ -1,12 +1,13 @@
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Open Sans', 'Lucida Grande', tahoma, verdana, arial, sans-serif;
-    background: #f1f2f5;
-    text-align: center;
-    font-weight: 300;
+  background: #f1f2f5;
+  text-align: center;
+  font-weight: 300;
+  margin: 0;
 }
 
 #list-container {
@@ -19,8 +20,8 @@ body {
   transition: padding 300ms ease-in-out, max-height 500ms ease-in-out;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  -webkit-perspective: 1000;
-  perspective: 1000;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
 }
 
 .complete {
@@ -37,42 +38,47 @@ body {
 }
 
 .main-list {
-  border-radius:3px;
-  box-shadow:0px 2px 8px rgba(0,0,0,0.15);
-  margin:0px auto;
-  top:0px;
-  max-width:500px;
-  width:100%;
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  top: 0;
+  max-width: 500px;
+  width: 100%;
   text-align: left;
   position: relative;
   padding-bottom: 1px;
 }
 
 .list-head {
-  position: relative;
-  padding: 2px 92px 0 46px;
-  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 22px;
+  height: 50px;
   background: #fff;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-  margin: auto 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .list-head h2 {
-  font-size: 24px;
+  font-size: 18px;
+  color: #333;
 }
 
 .refresh {
-  float: none;
-  position: absolute;
-  top: 0px;
-  right: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  height: 100%;
   width: 46px;
   text-align: center;
   cursor: pointer;
-  vertical-align: top;
+  vertical-align: middle;
+  color: #333;
 }
 
-.fas {
+.fas,
+.far {
   display: block;
   margin: auto;
   height: 50px;
@@ -82,43 +88,52 @@ body {
   color: #333;
 }
 
+.color-green:hover {
+  color: green;
+}
+
 .items {
   position: relative;
   text-align: left;
 }
 
-#add-item {
-  display: block;
-  padding:0px;
+#add-item,
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
   background: white;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  width: 100%;
 }
 
-#add-item input[type=text] {
-  width: 100%;
-  padding: 0 40px 0 1rem;
+#add-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* #add-btn-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  padding: 0;
   line-height: 50px;
   height: 50px;
   border: none;
-  font-style: italic;
-}
+} */
 
-#add-item #submit-new-item {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+#submit-new-task {
   border: none;
   background-color: transparent;
-  position: absolute;
-  right: 0px;
-  top: 0px;
   z-index: 0;
-  /* background-image: url(""); */
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px;
-  height: 50px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
+  color: #333;
+}
+
+#submit-new-task:hover {
+  color: green;
 }
 
 .input-item {
@@ -130,7 +145,7 @@ body {
   resize: none;
 }
 
-input[type=text], textarea {
+input[type=text] {
   padding: 8px 5px;
   border: 1px solid #ddd;
   line-height: 20px;
@@ -139,6 +154,19 @@ input[type=text], textarea {
   -moz-appearance: none;
   appearance: none;
   vertical-align: middle;
+}
+
+#add-item input[type=text] {
+  width: 100%;
+  padding: 0 40px 0 1rem;
+  line-height: 50px;
+  height: 50px;
+  border: none;
+  font-style: italic;
+}
+
+#add-item input[type=text]::after {
+  font-style: normal;
 }
 
 /* .todo.ui-sortable-helper {
@@ -154,35 +182,42 @@ input[type=text], textarea {
 
 .todo {
   display: flex;
-  position: relative;
-  background-color: #fff;
-  padding: 0px 3em;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0;
   font-size: 1rem;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   font-weight: 300;
   -webkit-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
-  box-sizing: content-box;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  perspective: 1000;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
 }
 
-/* .clear:before,
-.clear:after {
+.task-color-pink {
+  background-color: #faf4eb;
+}
+
+.task-color-white {
+  background-color: #fff;
+}
+
+.clear::before,
+.clear::after {
   content: " ";
   display: table;
 }
 
-.clear:after {
+.clear::after {
   clear: both;
-} */
+}
 
 .checkbox {
-
   background-color: transparent;
   border: 4px solid #c1c1c3;
   cursor: pointer;
@@ -190,18 +225,29 @@ input[type=text], textarea {
   height: 16px;
   width: 16px;
   border-radius: 2px;
-  margin: 17px 17px;
-  margin-left: -2.5em;
+  margin: 17px;
 }
 
 .label {
   width: 100%;
-  padding: 15px 0px;
+  padding: 15px 0;
+  line-height: 20px;
+  display: block;
+  font-size: 1em;
+  font-weight: 300;
+}
+
+/* .label:focus {
+  width: 100%;
+  padding: 15px 0;
   line-height: 20px;
   word-wrap: break-word;
   display: block;
-}
-/* 
+  border: none;
+  outline: none;
+} */
+
+/*
 .todo .destroy {
   opacity: 0.5;
   display: none;
@@ -212,9 +258,9 @@ input[type=text], textarea {
   margin: 0 0.5rem;
   cursor: pointer;
   overflow: hidden;
-  top: 0px;
+  top: 0;
   color: #333;
-  right: 0px;
+  right: 0;
   -webkit-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
 }
@@ -229,16 +275,6 @@ input[type=text], textarea {
   cursor: move;
 } */
 
-.far {
-  display: block;
-  margin: auto;
-  height: 50px;
-  line-height: 50px;
-  font-size: 18px;
-  opacity: 0.5;
-  color: #333;
-}
-
 .remove-selected {
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -249,8 +285,37 @@ input[type=text], textarea {
   margin: 1rem auto;
   display: block;
   color: #000;
-  font-size: 15px;
-  margin: 15px 120px;
-  padding: 1px 6px;
-  opacity: .5;
+  font-size: 1em;
+  font-weight: 300;
+  width: 100%;
+
+  /* padding: 8px 0; */
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.edit-input {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin: auto;
+  display: block;
+  color: #000;
+  font-size: 1.05em;
+  font-weight: 300;
+  width: 100%;
+  padding-top: 15px;
+  line-height: 20px;
+  border: none !important;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+  resize: none;
+  justify-content: center;
+  align-content: center;
+}
+
+.hide {
+  display: none;
 }
