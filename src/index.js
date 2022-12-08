@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import './style.css';
-import taskList, { addNewTask, remove, edit, displayTaskList, itemList } from './todolist';
-//const taskList = await import ('./todolist');
-import '@fortawesome/fontawesome-free/js/all.js'
+import { addNewTask, deleteTask, edit, displayTaskList, itemList } from './todolist';
+import '@fortawesome/fontawesome-free/js/all'
 
 function listHead () {
   const div = document.createElement('div');
+  div.id = 'list-head';
   div.classList.add('list-head');
   const h2 = document.createElement('h2');
   h2.innerText = 'Today\'s To Do';
@@ -13,7 +13,7 @@ function listHead () {
   const refresh = document.createElement('div');
   refresh.classList.add('refresh');
   const btnRefresh = document.createElement('i');
-  btnRefresh.classList.add('fas', 'fa-sync-alt');
+  btnRefresh.classList.add('color-green', 'fas', 'fa-sync-alt');
   refresh.appendChild(btnRefresh);
   div.appendChild(refresh);
   return div;
@@ -107,23 +107,27 @@ document.querySelector('#submit-new-task').addEventListener('click', () => {
   displayTaskList();
 });
 
-
-
 const selectTask = document.querySelector('#item-list');
 selectTask.addEventListener('click', (e) => {
-  let div = document.querySelector('.task-color-pink'); 
-  if (div !== null) {
-    div.classList.remove('task-color-pink');
-    div.classList.add('task-color-white');
-  }
   if (e.target.classList.contains('label')) {
+    let div = document.querySelector('.task-color-pink'); 
+    if (div !== null) {
+      div.classList.remove('task-color-pink');
+      div.classList.add('task-color-white');
+    }
     const nodeList = e.target.nextElementSibling.childNodes; ;
     const [remove] = nodeList;
     remove.classList.add('far', 'fa-trash-alt');
     div = e.target.parentNode;
     div.classList.remove('task-color-white');
     div.classList.add('task-color-pink');
-  } 
+  }
+  if (e.target.classList.contains('fa-trash-can')) {
+    const nod = e.target.parentNode;
+    deleteTask(parseInt(nod.title));
+    displayTaskList();
+    window.location.reload();
+  }
   document.querySelector('.fa-trash-can').classList.add('fas', 'fa-ellipsis-vertical');
   document.querySelector('.fa-trash-can').classList.remove('far', 'fa-trash-alt');
 });
@@ -141,5 +145,13 @@ document.querySelector('#remove-item').addEventListener('click', () => {
   if (div !== null) {
     div.classList.remove('task-color-pink');
     div.classList.add('task-color-white');
+  }
+});
+
+const refreshList = document.querySelector('#list-head');
+refreshList.addEventListener('click', (e) => {  
+  if (e.target.classList.contains('fa-rotate')) {
+    displayTaskList();
+    window.location.reload();
   }
 });

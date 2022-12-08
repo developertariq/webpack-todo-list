@@ -7,18 +7,16 @@ export const addNewTask =  (description) => {
   const task = {};
   task.description = description;
   task.completed = false;
-
   if (taskList !== null) {
     task.index = taskList.length + 1;
   } else {
     task.index = 1;
   }
-
   taskList.push(task);
   localStorage.setItem('todolist', JSON.stringify(taskList));
 }
 
-export const remove = (index) => {
+export const deleteTask = (index) => {
   let newList = taskList.filter ((a) => { 
     if (a.index !== index) {
       if (a.index > index) {
@@ -52,7 +50,6 @@ export const displayTaskList = () => {
   }
 }
 
-
 export const itemList = () => {
   const itemdiv = document.createElement('div');
   itemdiv.id='item-list';
@@ -76,6 +73,7 @@ export const itemList = () => {
 
     const remove = document.createElement('i');
     remove.classList.add('fas', 'fa-ellipsis-v');
+    refresh.title = task.index;
     
     refresh.appendChild(remove);
     div.appendChild(refresh);
@@ -84,5 +82,3 @@ export const itemList = () => {
   
   return itemdiv;
 }
-
-export  default taskList;

@@ -89,6 +89,10 @@ body {
   margin: auto;
 }
 
+.color-green:hover {
+  color: green;
+}
+
 .items {
   position: relative;
   text-align: left;
