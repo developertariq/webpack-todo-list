@@ -17,9 +17,11 @@ export const addNewTask = (description) => {
 };
 
 export function deleteTask(index) {
-  alert(index);
   const newList = taskList.filter((a) => {
-    if (a.index !== index) { if (a.index > index) { a.index -= 1; } return a; } return;
+    if (a.index !== index) {
+      if (a.index > index) { a.index -= 1; } return a;
+    }
+    return false;
   });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
@@ -48,7 +50,6 @@ export function displayTaskList() {
 export const itemList = () => {
   const itemdiv = document.createElement('div');
   itemdiv.id = 'item-list';
-  // itemdiv.classList.add('items');
   displayTaskList();
   taskList.forEach((task) => {
     const div = document.createElement('div');
@@ -56,6 +57,7 @@ export const itemList = () => {
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('checkbox');
+    checkbox.name = task.index;
     div.appendChild(checkbox);
 
     const textarea = document.createElement('textarea');
@@ -67,7 +69,7 @@ export const itemList = () => {
 
     const label = document.createElement('label');
     label.classList.add('label');
-    label.innerText = task.description;
+    label.innerText = `${task.description}`;
     label.name = task.index;
     div.appendChild(label);
 
@@ -82,4 +84,13 @@ export const itemList = () => {
   });
 
   return itemdiv;
+};
+
+export const completeTask = (index) => {
+  const newList = taskList.filter((a) => {
+    if (a.index === index) { a.completed = true; return a; }
+    return a;
+  });
+  taskList = newList;
+  localStorage.setItem('todolist', JSON.stringify(taskList));
 };

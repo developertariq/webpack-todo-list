@@ -1,85 +1,10 @@
 // import _ from 'lodash';
 import './style.css';
 import {
-  addNewTask, deleteTask, editTask, displayTaskList, itemList,
+  addNewTask, deleteTask, editTask, displayTaskList, completeTask,
 } from './todolist.js';
+import mainList from './loadlist.js';
 import '@fortawesome/fontawesome-free/js/all.js';
-
-function listHead() {
-  const div = document.createElement('div');
-  div.id = 'list-head';
-  div.classList.add('list-head');
-  const h2 = document.createElement('h2');
-  h2.innerText = 'Today\'s To Do';
-  div.appendChild(h2);
-  const refresh = document.createElement('div');
-  refresh.classList.add('refresh');
-  const btnRefresh = document.createElement('i');
-  btnRefresh.classList.add('color-green', 'fas', 'fa-sync-alt');
-  refresh.appendChild(btnRefresh);
-  div.appendChild(refresh);
-  return div;
-}
-
-function addItem() {
-  const div = document.createElement('div');
-  div.id = 'add-item';
-  const form = document.createElement('form');
-  form.id = 'new-task-form';
-  form.action = '#';
-  const text = document.createElement('input');
-  text.id = 'newtask';
-  text.name = 'newtask';
-  text.classList.add('input-item');
-  text.type = 'text';
-  text.placeholder = 'Add to your list...';
-  text.required = true;
-  form.appendChild(text);
-  const submit = document.createElement('input');
-  submit.id = 'submit-new-task';
-  submit.classList.add('input-item', 'fas', 'fa-level-down-alt');
-  submit.style.rotate = '90deg';
-  submit.style.fontSize = '18px';
-  submit.type = 'submit';
-  submit.tabIndex = -1;
-  submit.value = '';
-  submit.title = 'click this or press enter to submit';
-  const btndiv = document.createElement('div');
-  btndiv.id = 'add-btn-wrap';
-  btndiv.classList.add('refresh');
-  btndiv.appendChild(submit);
-  form.appendChild(btndiv);
-  div.appendChild(form);
-  return div;
-}
-
-function removeSelected() {
-  const div = document.createElement('div');
-  div.id = 'remove-item';
-  const button = document.createElement('button');
-  button.classList.add('remove-selected');
-  button.type = 'button';
-  button.innerText = 'Clear all completed';
-  div.appendChild(button);
-  return div;
-}
-
-function lists() {
-  const lists = document.createElement('div');
-  lists.classList.add('list');
-  lists.appendChild(addItem());
-  lists.appendChild(itemList());
-  lists.appendChild(removeSelected());
-  return lists;
-}
-
-function mainList() {
-  const mainList = document.createElement('div');
-  mainList.classList.add('main-list');
-  mainList.appendChild(listHead());
-  mainList.appendChild(lists());
-  return mainList;
-}
 
 function listContainer() {
   const listContainer = document.createElement('div');
@@ -91,14 +16,12 @@ function listContainer() {
 
 document.body.appendChild(listContainer());
 const form = document.querySelector('#new-task-form');
-
 form.addEventListener('submit', () => {
   if (document.getElementById('newtask').value !== '') {
     addNewTask(form.elements.newtask.value);
   }
   displayTaskList();
 });
-
 const addNewButton = document.querySelector('#submit-new-task');
 addNewButton.addEventListener('click', () => {
   if (document.getElementById('newtask').value !== '') {
@@ -188,4 +111,28 @@ refreshList.addEventListener('click', (e) => {
     displayTaskList();
     window.location.reload();
   }
+});
+
+const check = document.querySelectorAll('input[type=checkbox]');
+for (let i = 0; i < check.length; i += 1) {
+  check[i].onchange = function () {
+    const div = this.nextElementSibling.nextElementSibling;
+    if (this.checked === true) {
+      div.classList.add('checked');
+    } else {
+      div.classList.remove('checked');
+    }
+  };
+}
+
+const remove = document.getElementById('remove-item');
+remove.addEventListener('click', () => {
+  const textinputs = document.querySelectorAll('input[type=checkbox]');
+  const empty = [].filter.call(textinputs, (el) => el.checked);
+
+  empty.forEach((e) => {
+    completeTask(parseInt(e.name, 10));
+  });
+  displayTaskList();
+  window.location.reload();
 });

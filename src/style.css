@@ -228,6 +228,10 @@ input[type=text] {
   margin: 17px;
 }
 
+.checked {
+  text-decoration: line-through;
+}
+
 .label {
   width: 100%;
   padding: 15px 0;
@@ -237,7 +241,7 @@ input[type=text] {
   font-weight: 300;
 }
 
-/* .label:focus {
+.label:focus {
   width: 100%;
   padding: 15px 0;
   line-height: 20px;
@@ -245,7 +249,7 @@ input[type=text] {
   display: block;
   border: none;
   outline: none;
-} */
+}
 
 /*
 .todo .destroy {
@@ -288,10 +292,13 @@ input[type=text] {
   font-size: 1em;
   font-weight: 300;
   width: 100%;
-
-  /* padding: 8px 0; */
+  cursor: pointer;
   line-height: 20px;
   word-wrap: break-word;
+}
+
+.remove-selected:hover {
+  text-decoration: underline;
 }
 
 .edit-input {
