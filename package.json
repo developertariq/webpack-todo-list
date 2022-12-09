@@ -4,7 +4,7 @@
   "description": "<a name=\"readme-top\"></a>",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "todo-list -d dist",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"
@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/developertariq/webpack-todo-list/issues"
   },
-  "homepage": "https://github.com/developertariq/webpack-todo-list#readme",
+  "homepage": "https://developertariq.github.io/webpack-todo-list/",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^6.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -553,6 +553,7 @@
     "to-fast-properties": "^2.0.0",
     "to-readable-stream": "^1.0.0",
     "to-regex-range": "^5.0.1",
+    "todo-list": "^0.0.3",
     "toidentifier": "^1.0.1",
     "token-types": "^4.2.1",
     "tough-cookie": "^4.1.2",
