@@ -127,10 +127,8 @@ for (let i = 0; i < check.length; i += 1) {
 
 const remove = document.getElementById('remove-item');
 remove.addEventListener('click', () => {
-  const textinputs = document.querySelectorAll('input[type=checkbox]'); 
-  const empty = [].filter.call( textinputs, function( el ) {
-     return el.checked;
-  });
+  const textinputs = document.querySelectorAll('input[type=checkbox]');
+  const empty = [].filter.call(textinputs, (el) => el.checked);
 
   empty.forEach((e) => {
     completeTask(parseInt(e.name, 10));

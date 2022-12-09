@@ -17,7 +17,12 @@ export const addNewTask = (description) => {
 };
 
 export function deleteTask(index) {
-  let newList = taskList.filter((a) => { if (a.index !== index) { if (a.index > index) { a.index -= 1; } return a; } return false; });
+  const newList = taskList.filter((a) => {
+    if (a.index !== index) {
+      if (a.index > index) { a.index -= 1; } return a;
+    }
+    return false;
+  });
   taskList = newList;
   localStorage.setItem('todolist', JSON.stringify(taskList));
 }
