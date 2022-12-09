@@ -81,3 +81,11 @@ export const itemList = () => {
   return itemdiv;
 };
 
+export const completeTask = (index) => {
+  const newList = taskList.filter((a) => {
+    if (a.index === index) { a.completed = true; return a; }
+    return a;
+  });
+  taskList = newList;
+  localStorage.setItem('todolist', JSON.stringify(taskList));
+};
