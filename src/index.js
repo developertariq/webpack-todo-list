@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: "error" */
 // import _ from 'lodash';
 import './style.css';
 import {
