@@ -4,7 +4,7 @@
   "description": "<a name=\"readme-top\"></a>",
   "private": true,
   "scripts": {
-    "deploy": "todo-list -d dist",
+    "deploy": "gh-pages -d dist",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
     "build": "webpack"
@@ -32,6 +32,7 @@
     "webpack": "^5.75.0"
   },
   "dependencies": {
+    "gh-pages": "^4.0.0",
     "todo-list": "^0.0.3"
   }
 }
