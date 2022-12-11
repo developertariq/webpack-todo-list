@@ -60,15 +60,8 @@ export const itemList = () => {
     checkbox.name = task.index;
     div.appendChild(checkbox);
 
-    const textarea = document.createElement('textarea');
-    textarea.classList.add('edit-input', 'hide');
-    textarea.value = task.description;
-    textarea.autocomplete = 'off';
-    textarea.name = task.index;
-    div.appendChild(textarea);
-
-    const label = document.createElement('label');
-    label.classList.add('label');
+    const label = document.createElement('span');
+    label.classList.add('desription');
     label.innerText = `${task.description}`;
     label.name = task.index;
     div.appendChild(label);

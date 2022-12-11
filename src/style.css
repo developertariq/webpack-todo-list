@@ -232,7 +232,7 @@ input[type=text] {
   text-decoration: line-through;
 }
 
-.label {
+.desription {
   width: 100%;
   padding: 15px 0;
   line-height: 20px;
@@ -241,7 +241,7 @@ input[type=text] {
   font-weight: 300;
 }
 
-.label:focus {
+.desription:focus {
   width: 100%;
   padding: 15px 0;
   line-height: 20px;

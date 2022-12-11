@@ -1,11 +1,21 @@
 /* eslint no-unused-vars: "error" */
-// import _ from 'lodash';
+/* eslint no-unsafe-optional-chaining: ["error", { "disallowArithmeticOperators": false }] */
+
 import './style.css';
 import {
   addNewTask, deleteTask, editTask, displayTaskList, completeTask,
 } from './todolist.js';
 import mainList from './loadlist.js';
 import '@fortawesome/fontawesome-free/js/all.js';
+
+let newDesc = '';
+function changeValue(a) {
+  newDesc = a;
+}
+
+function getValue() {
+  return newDesc;
+}
 
 function listContainer() {
   const listContainer = document.createElement('div');
@@ -32,54 +42,6 @@ addNewButton.addEventListener('click', () => {
 });
 
 const selectTask = document.querySelector('#item-list');
-selectTask.addEventListener('click', (e) => {
-  const trashCan = document.querySelector('.fa-trash-can');
-  const textarea = document.querySelectorAll('.edit-input');
-  const label = document.querySelectorAll('.label');
-  if (label !== null) {
-    label.forEach((a) => {
-      a.classList.remove('hide');
-    });
-  }
-  if (textarea !== null) {
-    textarea.forEach((a) => {
-      a.classList.add('hide');
-    });
-  }
-  if (trashCan !== null) {
-    trashCan.classList.add('fas', 'fa-ellipsis-vertical');
-    trashCan.classList.remove('far', 'fa-trash-alt');
-  }
-
-  if (e.target.classList.contains('label')) {
-    e.target.classList.add('hide');
-
-    let div = document.querySelector('.task-color-pink');
-    if (div !== null) {
-      div.classList.remove('task-color-pink');
-      div.classList.add('task-color-white');
-    }
-    const nodeList = e.target.nextElementSibling.childNodes;
-    const [remove] = nodeList;
-    remove.classList.add('far', 'fa-trash-alt');
-    div = e.target.parentNode;
-    div.classList.remove('task-color-white');
-    div.classList.add('task-color-pink');
-    const sarea = e.target.previousElementSibling;
-    sarea.classList.remove('hide');
-    sarea.focus();
-  }
-});
-
-const textarea = document.querySelectorAll('textarea');
-
-for (let i = 0; i < textarea.length; i += 1) {
-  textarea[i].onchange = function () {
-    editTask(this.value, parseInt(this.name, 10));
-    const div = this.nextElementSibling;
-    div.innerText = this.value;
-  };
-}
 
 selectTask.addEventListener('click', (e) => {
   if (e.target.classList.contains('fa-trash-can')) {
@@ -89,6 +51,50 @@ selectTask.addEventListener('click', (e) => {
     div.style.display = 'none';
   }
 });
+
+const descLabel = document.querySelectorAll('.desription');
+
+for (let i = 0; i < descLabel.length; i += 1) {
+  descLabel[i].onclick = function () {
+    const label = document.querySelector('.task-color-pink');
+    if (label !== null) {
+      label.classList.remove('task-color-pink');
+      label.classList.add('task-color-white');
+    }
+    const trashCan = document.querySelector('.fa-trash-can');
+    if (trashCan !== null) {
+      trashCan.classList.add('fas', 'fa-ellipsis-vertical');
+      trashCan.classList.remove('far', 'fa-trash-alt');
+    }
+    const check = this.previousElementSibling;
+
+    if (check !== null) {
+      check.checked = false;
+      this.classList.remove('checked');
+    }
+    this.parentNode.classList.remove('task-color-white');
+    this.parentNode.classList.add('task-color-pink');
+
+    const nodeList = this.nextElementSibling.childNodes;
+
+    const [remove] = nodeList;
+    remove.classList.add('far', 'fa-trash-alt');
+    this.setAttribute('contenteditable', 'true');
+    this.setAttribute('autocomplete', 'on');
+    this.focus();
+  };
+
+  descLabel[i].oninput = function () {
+    changeValue(this.innerText);
+  };
+
+  descLabel[i].onblur = function () {
+    if (getValue() !== '') {
+      editTask(getValue(), parseInt(this.name, 10));
+      changeValue('');
+    }
+  };
+}
 
 document.querySelector('#add-item').addEventListener('click', () => {
   const div = document.querySelector('.task-color-pink');
@@ -117,7 +123,17 @@ refreshList.addEventListener('click', (e) => {
 const check = document.querySelectorAll('input[type=checkbox]');
 for (let i = 0; i < check.length; i += 1) {
   check[i].onchange = function () {
-    const div = this.nextElementSibling.nextElementSibling;
+    const div = this.nextElementSibling;
+    const trashCan = document.querySelector('.fa-trash-can');
+    if (trashCan !== null) {
+      trashCan.classList.add('fas', 'fa-ellipsis-vertical');
+      trashCan.classList.remove('far', 'fa-trash-alt');
+    }
+    const span = document.querySelector('.task-color-pink');
+    if (span !== null) {
+      span.classList.remove('task-color-pink');
+      span.classList.add('task-color-white');
+    }
     if (this.checked === true) {
       div.classList.add('checked');
     } else {
