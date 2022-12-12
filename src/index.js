@@ -102,6 +102,11 @@ document.querySelector('#add-item').addEventListener('click', () => {
     div.classList.remove('task-color-pink');
     div.classList.add('task-color-white');
   }
+  const trashCan = document.querySelector('.fa-trash-can');
+  if (trashCan !== null) {
+    trashCan.classList.add('fas', 'fa-ellipsis-vertical');
+    trashCan.classList.remove('far', 'fa-trash-alt');
+  }
 });
 
 document.querySelector('#remove-item').addEventListener('click', () => {
